@@ -228,8 +228,8 @@ def _run_and_get_stdout(command, pipe_command=None):
 # Make sure we are running on a supported system
 def _check_arch():
 	arch, bits = _parse_arch(DataSource.raw_arch_string)
-	if not arch in ['X86_32', 'X86_64', 'ARM_7', 'ARM_8', 'PPC_64']:
-		raise Exception("py-cpuinfo currently only works on X86 and some PPC and ARM CPUs.")
+	if not arch in ['X86_32', 'X86_64', 'ARM_7', 'ARM_8', 'PPC_64', 'S390X']:
+		raise Exception("py-cpuinfo currently only works on X86 and some ARM/PPC/S390X CPUs.")
 
 def _obj_to_b64(thing):
 	import pickle
@@ -590,6 +590,10 @@ def _parse_arch(raw_arch_string):
 		bits = 32
 	elif re.match('^sparc64$|^sun4u$|^sun4v$', raw_arch_string):
 		arch = 'SPARC_64'
+		bits = 64
+	# S390X
+	elif re.match('^s390x$', raw_arch_string):
+		arch = 'S390X'
 		bits = 64
 
 	return (arch, bits)
