@@ -1398,7 +1398,7 @@ def _get_cpu_info_from_proc_cpuinfo():
 		info = {k: v for k, v in info.items() if v}
 		return info
 	except:
-		#raise # NOTE: To have this throw on error, uncomment this line
+		raise # NOTE: To have this throw on error, uncomment this line
 		return {}
 
 def _get_cpu_info_from_cpufreq_info():
@@ -1465,6 +1465,15 @@ def _get_cpu_info_from_lscpu():
 			info['hz_advertised_raw'] = _to_raw_hz(new_hz, scale)
 			info['hz_actual_raw'] = _to_raw_hz(new_hz, scale)
 
+		new_hz = _get_field(False, output, None, None, 'CPU dynamic MHz', 'CPU static MHz')
+		if new_hz:
+			new_hz = _to_hz_string(new_hz)
+			scale = 6
+			info['hz_advertised'] = _to_friendly_hz(new_hz, scale)
+			info['hz_actual'] = _to_friendly_hz(new_hz, scale)
+			info['hz_advertised_raw'] = _to_raw_hz(new_hz, scale)
+			info['hz_actual_raw'] = _to_raw_hz(new_hz, scale)
+
 		vendor_id = _get_field(False, output, None, None, 'Vendor ID')
 		if vendor_id:
 			info['vendor_id'] = vendor_id
@@ -1493,7 +1502,7 @@ def _get_cpu_info_from_lscpu():
 		if l1_instruction_cache_size:
 			info['l1_instruction_cache_size'] = _to_friendly_bytes(l1_instruction_cache_size)
 
-		l2_cache_size = _get_field(False, output, None, None, 'L2 cache')
+		l2_cache_size = _get_field(False, output, None, None, 'L2 cache', 'L2d cache')
 		if l2_cache_size:
 			info['l2_cache_size'] = _to_friendly_bytes(l2_cache_size)
 
