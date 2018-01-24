@@ -442,7 +442,6 @@ class TestLinuxFedora_5_s390x(unittest.TestCase):
 	'''
 	def test_get_cpu_info_from_proc_cpuinfo(self):
 		info = cpuinfo._get_cpu_info_from_proc_cpuinfo()
-		print(info)
 
 		self.assertEqual('IBM/S390', info['vendor_id'])
 		#self.assertEqual('FIXME', info['brand'])
@@ -451,17 +450,17 @@ class TestLinuxFedora_5_s390x(unittest.TestCase):
 		self.assertEqual((5504000000, 0), info['hz_advertised_raw'])
 		self.assertEqual((5504000000, 0), info['hz_actual_raw'])
 
-		self.assertEqual('3072 KB', info['l3_cache_size'])
+		self.assertEqual('49152 KB', info['l3_cache_size'])
 
-		self.assertEqual(7, info['stepping'])
-		self.assertEqual(42, info['model'])
-		self.assertEqual(6, info['family'])
-		self.assertEqual(
-			['dfp', 'eimm', 'esan3', 'etf3eh', 'highgprs', 'msa', 'ldisp',
-			'sie', 'stfle', 'zarch']
-			,
-			info['flags']
-		)
+		#self.assertEqual(7, info['stepping'])
+		#self.assertEqual(42, info['model'])
+		#self.assertEqual(6, info['family'])
+		#self.assertEqual(
+		#	['dfp', 'eimm', 'esan3', 'etf3eh', 'highgprs', 'msa', 'ldisp',
+		#	'sie', 'stfle', 'zarch']
+		#	,
+		#	info['flags']
+		#)
 	'''
 	def test_all(self):
 		info = cpuinfo.get_cpu_info()
