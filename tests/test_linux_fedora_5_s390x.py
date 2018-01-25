@@ -391,12 +391,12 @@ class TestLinuxFedora_5_s390x(unittest.TestCase):
 		self.assertEqual(7, len(cpuinfo._get_cpu_info_from_proc_cpuinfo()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_sysctl()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_kstat()))
-		self.assertEqual(1, len(cpuinfo._get_cpu_info_from_dmesg()))
+		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_dmesg()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_cat_var_run_dmesg_boot()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_ibm_pa_features()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_sysinfo()))
 		self.assertEqual(0, len(cpuinfo._get_cpu_info_from_cpuid()))
-		self.assertEqual(16, len(cpuinfo.get_cpu_info()))
+		self.assertEqual(15, len(cpuinfo.get_cpu_info()))
 
 	def test_get_cpu_info_from_lscpu(self):
 		info = cpuinfo._get_cpu_info_from_lscpu()

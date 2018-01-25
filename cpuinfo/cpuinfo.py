@@ -1540,6 +1540,11 @@ def _get_cpu_info_from_dmesg():
 	Returns the CPU info gathered from dmesg.
 	Returns {} if dmesg is not found or does not have the desired info.
 	'''
+	# Just return {} if this arch has an unreliable dmesg log
+	arch, bits = _parse_arch(DataSource.raw_arch_string)
+	if arch in ['S390X']:
+		return {}
+
 	# Just return {} if there is no dmesg
 	if not DataSource.has_dmesg():
 		return {}
